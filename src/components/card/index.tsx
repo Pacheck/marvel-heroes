@@ -1,25 +1,8 @@
 import React from 'react';
+import { CharacterProp } from '../../types';
 
 import { Container, InfoWrapper, Image, ReadMore } from './styles';
 
-type Series = {
-  resourceURI: string;
-  name: string;
-};
-
-type CharacterProp = {
-  id: number;
-  name: string;
-  description: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-  series: {
-    available: number;
-    items: Series[];
-  };
-};
 const CardItem = ({
   id,
   name,
