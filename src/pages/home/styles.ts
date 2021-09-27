@@ -50,7 +50,7 @@ export const TextContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  margin-left: 5rem;
+  margin-left: 10rem;
 `;
 export const MainText = styled.h1`
   font-family: 'Roboto';

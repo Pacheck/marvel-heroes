@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCharacters } from '../../redux/actions/character.actions';
 
 import CardItem from '../../components/card';
-import Logo from '../../components/searchbar';
+import Searchbar from '../../components/searchbar';
 
 import MarvelLogo from '../../assets/marvel-icon.png';
 import * as S from './styles';
@@ -77,7 +77,7 @@ const Home = () => {
                 <S.NavigationItem>{name}</S.NavigationItem>
               </Link>
             ))}
-            <Logo />
+            <Searchbar characterList={characterStore.characters} />
           </S.NavigationList>
         </S.Navbar>
       </S.Header>
