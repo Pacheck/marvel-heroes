@@ -1,11 +1,10 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 import { setCharacterDetails } from '../../redux/actions/character.actions';
-import ArrowBackComponent from '../../components/backarrow';
 
-import { Container, Form } from './styles';
+import { Container, Form, InsertDataContainer, Title } from './styles';
 
 type charProps = {
   name: string | null;
@@ -16,9 +15,9 @@ const EditDetails = () => {
     name: null,
     description: null,
   });
+  const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
-  const store = useSelector((state: any) => state.character);
 
   const handleChangeBio = (e: any) => {
     const { name, value } = e.target;
@@ -33,27 +32,38 @@ const EditDetails = () => {
     };
     dispatch(setCharacterDetails(newChar));
   };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    if (char.name && char.description) {
+      handleSave();
+      history.push(`/details/${id}`);
+    } else {
+      alert('Name and Description are required');
+    }
+  };
   return (
     <Container>
-      <ArrowBackComponent path={`/details/${id}`} />
-      <Form onSubmit={(e) => e.preventDefault()}>
-        <h1>Edit Character Details</h1>
-        <input
-          type="text"
-          name="name"
-          placeholder="nome"
-          onChange={handleChangeBio}
-        />
-        <textarea
-          name="description"
-          id="sobre"
-          cols={41}
-          rows={5}
-          placeholder="sobre"
-          onChange={handleChangeBio}
-        ></textarea>
+      <Form onSubmit={handleSubmit}>
+        <Title>Edit Character Details</Title>
+        <InsertDataContainer>
+          <input
+            type="text"
+            name="name"
+            placeholder="nome"
+            onChange={handleChangeBio}
+          />
+          <textarea
+            name="description"
+            id="sobre"
+            cols={41}
+            rows={5}
+            placeholder="sobre"
+            onChange={handleChangeBio}
+          ></textarea>
+        </InsertDataContainer>
 
-        <button onClick={handleSave}>Salvar alterações</button>
+        <button type="submit">Salvar alterações</button>
       </Form>
     </Container>
   );
