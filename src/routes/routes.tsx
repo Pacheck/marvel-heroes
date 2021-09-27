@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from '../pages/home';
 import DetailsPage from '../pages/details';
+import EditDetails from '../pages/editDetails';
 
 const routes = [
   {
@@ -17,8 +18,16 @@ const routes = [
   {
     component: DetailsPage,
     configs: {
+      exact: true,
       key: 2,
       path: '/details/:id',
+    },
+  },
+  {
+    component: EditDetails,
+    configs: {
+      key: 3,
+      path: '/details/:id/edit',
     },
   },
 ];
