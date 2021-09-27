@@ -7,6 +7,9 @@ export const Container = styled.div`
   background-size: 162% 100%;
   background-position: 100% 200%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ContentWrapper = styled.div`
@@ -20,7 +23,22 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const Footer = styled.footer``;
+export const Footer = styled.footer`
+  height: 90%;
+
+  h2 {
+    text-align: center !important;
+    padding: 1rem;
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #c4c4c4;
+  }
+`;
 
 export const InfoWrapper = styled.div`
   width: 35rem;
@@ -62,6 +80,8 @@ export const Series = styled.h2`
 `;
 
 export const Text = styled.div`
+  height: 10rem;
+  overflow-y: auto;
   font-family: Inter;
   font-size: 20px;
   font-style: normal;
@@ -70,10 +90,53 @@ export const Text = styled.div`
   letter-spacing: 0em;
   text-align: left;
   color: #fbfbfb;
+
+  ::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c41616;
+    border: 0.3px solid #fffafa;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f74349;
+  }
+  ::-webkit-scrollbar-track {
+    background: #333030;
+    border-radius: 0px;
+    box-shadow: inset 0px 0px 0px 0px #f0f0f0;
+  }
 `;
 
-export const CharImage = styled.img``;
+export const CharImage = styled.img`
+  width: 269px;
+  height: 404px;
+  object-fit: cover;
+`;
 
 export const EditCharacter = styled.button`
-  position: absolute;
+  margin-top: 1rem;
+  border: 1px solid red;
+  background-color: transparent;
+  color: red;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  :hover {
+    background-color: red;
+    color: black;
+  }
+`;
+
+export const LeftWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const FooterCardsContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
