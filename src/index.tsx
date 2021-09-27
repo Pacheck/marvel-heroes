@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
+import ReduxStoreProvider from './redux/store';
+
 import reportWebVitals from './reportWebVitals';
+
+import GlobalStyle from './styles/globalStyle';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <ReduxStoreProvider>
+        <App />
+        <GlobalStyle />
+      </ReduxStoreProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
