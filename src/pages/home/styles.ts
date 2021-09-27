@@ -78,5 +78,7 @@ export const CarrouselContainer = styled.div`
   display: flex;
   overflow: hidden;
   position: relative;
+  width: 80%;
   top: 8rem;
+  left: 10%;
 `;

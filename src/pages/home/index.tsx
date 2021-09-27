@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import api from '../../services/api';
-import {
-  getAllCharacters,
-  getCharacterDetails,
-} from '../../redux/actions/character.actions';
+import { getAllCharacters } from '../../redux/actions/character.actions';
 
 import CardItem from '../../components/card';
 import Logo from '../../components/searchbar';
 
 import MarvelLogo from '../../assets/marvel-icon.png';
 import * as S from './styles';
-
-import Img1 from '../../assets/1.png';
-import Img2 from '../../assets/2.png';
-import Img3 from '../../assets/3.png';
+import ForwardArrow from '../../components/forward-arrow';
+import BackwardArrow from '../../components/backward-arrow';
+import { CharacterProp } from '../../types';
 
 const NavItems = [
   { path: '/', name: 'Home' },
@@ -26,61 +21,34 @@ const NavItems = [
   { path: '/games', name: 'Games' },
 ];
 
-const mock = [
-  {
-    img: Img1,
-    name: '3-D Man',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img2,
-    name: 'A-Bomb (HAS)',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img3,
-    name: 'A.I.M',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img1,
-    name: '3-D Man',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img2,
-    name: 'A-Bomb (HAS)',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img3,
-    name: 'A.I.M',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img1,
-    name: '3-D Man',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img2,
-    name: 'A-Bomb (HAS)',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-  {
-    img: Img3,
-    name: 'A.I.M',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros tellus, malesuada et velit in, blandit molestie dolor.',
-  },
-];
-
 const Home = () => {
   const dispatch = useDispatch();
   const characterStore = useSelector((state: any) => state.characters);
+  const [cardPosition, setCardPosition] = useState([0, 3]);
+
+  const whichCardsRender = (item: CharacterProp, index: number) => {
+    if (index >= cardPosition[0] && index <= cardPosition[1]) {
+      return <CardItem key={item.id} {...item} />;
+    }
+    return null;
+  };
+
+  const handleNextCards = () => {
+    if (cardPosition[1] < characterStore.characters.length - 1) {
+      setCardPosition([cardPosition[0] + 3, cardPosition[1] + 3]);
+    }
+  };
+
+  const handlePreviousCards = () => {
+    if (cardPosition[0] > 0) {
+      setCardPosition([cardPosition[0] - 3, cardPosition[1] - 3]);
+    }
+  };
 
   useEffect(() => {
-    dispatch(getAllCharacters());
-    // dispatch(getCharacterDetails(1017100));
+    if (characterStore.characters.length <= 0) {
+      dispatch(getAllCharacters());
+    }
   }, []);
 
   return (
@@ -107,9 +75,9 @@ const Home = () => {
           </S.SubText>
         </S.TextContainer>
         <S.CarrouselContainer>
-          {characterStore.characters.map((item: any) => (
-            <CardItem key={Math.random()} {...item} />
-          ))}
+          <BackwardArrow handleClick={handlePreviousCards} />
+          {characterStore.characters.map(whichCardsRender)}
+          <ForwardArrow handleClick={handleNextCards} />
         </S.CarrouselContainer>
       </S.MainContent>
     </S.Container>
